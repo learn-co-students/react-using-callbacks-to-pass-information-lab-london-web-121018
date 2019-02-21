@@ -5,12 +5,26 @@ import ColorSelector from './ColorSelector.js'
 
 export default class Matrix extends Component {
 
-  constructor() {
+  constructor(){
     super()
+    this.state = {
+      selected: null
+    }
+  }
+
+  setSelected = (hex) => {
+    console.log(hex)
+    this.setState({
+      selected: hex
+    })
+  }
+
+  getSelected = () => {
+    return this.state.selected
   }
 
   genRow = (vals) => (
-    vals.map((val, idx) => <Cell key={idx} color={val} />)
+    vals.map((val, idx) => <Cell cSelected={this.getSelected} key={idx} color={val} />)
   )
 
   genMatrix = () => (
@@ -21,7 +35,7 @@ export default class Matrix extends Component {
   render() {
     return (
       <div id="app">
-        <ColorSelector />
+        <ColorSelector setSelected={this.setSelected}/>
         <div id="matrix">
           {this.genMatrix()}
         </div>
